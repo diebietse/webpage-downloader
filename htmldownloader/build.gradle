@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion versions.compileSdk
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility versions.sourceCompatibility
+        targetCompatibility versions.targetCompatibility
+    }
+    kotlinOptions {
+        jvmTarget = versions.targetCompatibility.toString()
+    }
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
+    }
+}
+
+dependencies {
+    api deps.androidxLifecycle
+    implementation deps.okhttp
+    implementation deps.androidxAnnotations
+    implementation deps.androidxCore
+    implementation deps.kotlinStdlibJdk8
+    implementation deps.jsoup
+
+    testImplementation deps.junit
+    testImplementation deps.truth
+    testImplementation deps.mockwebserver
+}
