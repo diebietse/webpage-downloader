@@ -14,7 +14,7 @@ class HtmlDownloader {
     companion object {
         private val HEADERS = Headers.Builder().add(
             "User-Agent",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
+            "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Mobile Safari/537.36"
         ).build()
         private val CLIENT: OkHttpClient = OkHttpClient()
     }
