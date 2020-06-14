@@ -103,6 +103,21 @@ class HtmlDownloaderTest {
     }
 
     @Test
+    fun findAndUpdateStylesheetLinks_removes_sri() {
+        val stylesheetHtml = """
+            <link ="anonymous" rel='stylesheet' integrity="sha512-x...w==" href='https://example.org/style1.min.css?ver=1.0.0' />
+            """.trimIndent()
+        val document = Jsoup.parse(stylesheetHtml, "https://example.com")
+        val stylesheets = htmlDownloader.findAndUpdateStylesheetLinks(document)
+
+        assertThat(stylesheets).hasSize(1)
+
+        val newHtml = document.toString()
+        assertThat(newHtml).doesNotContain("crossorigin")
+        assertThat(newHtml).doesNotContain("integrity")
+    }
+
+    @Test
     fun findAndUpdateStylesheets() {
         val htmlEmbeddedCss = """
             <style type="text/css">
@@ -176,6 +191,22 @@ class HtmlDownloaderTest {
         )
 
         scripts.forEach { assertThat(newHtml).contains(it.filename) }
+    }
+
+    @Test
+    fun findAndUpdateScripts_removes_sri() {
+        val htmlScripts = """
+            <script crossorigin="anonymous" integrity="sha512-W...A==" type='text/javascript' src='https://www.example.org/test1.js?ver=5.2.5'></script>
+        """.trimIndent()
+
+        val document = Jsoup.parse(htmlScripts, "https://example.com")
+        val scripts = htmlDownloader.findAndUpdateScripts(document)
+
+        assertThat(scripts).hasSize(1)
+
+        val newHtml = document.toString()
+        assertThat(newHtml).doesNotContain("crossorigin")
+        assertThat(newHtml).doesNotContain("integrity")
     }
 
     @Test

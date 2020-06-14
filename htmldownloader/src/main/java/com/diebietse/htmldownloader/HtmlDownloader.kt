@@ -139,6 +139,8 @@ class HtmlDownloader {
             if (!newFileName.endsWith(".css")) newFileName += ".css"
             filesToDownload.add(HtmlUtil.DownloadInfo(absUrl, newFileName))
             link.attr("href", newFileName)
+            link.removeAttr("crossorigin")
+            link.removeAttr("integrity")
         }
         return filesToDownload
     }

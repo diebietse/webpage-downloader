@@ -36,6 +36,8 @@ object HtmlUtil {
             filesToDownload.add(DownloadInfo(absUrl, newFileName))
             link.attr("src", newFileName)
             link.removeAttr("srcset")
+            link.removeAttr("crossorigin")
+            link.removeAttr("integrity")
         }
         return filesToDownload
     }
