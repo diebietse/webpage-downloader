@@ -1,5 +1,6 @@
 package com.diebietse.htmldownloader
 
+import android.util.Log
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -67,6 +68,7 @@ class HtmlDownloader {
             response.body!!.close()
             text
         } catch (e: IOException) {
+            Log.e("downloader", e.message, e)
             ""
         }
     }
