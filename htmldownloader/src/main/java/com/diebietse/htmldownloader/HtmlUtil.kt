@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document
 import java.net.MalformedURLException
 import java.net.URL
 import java.util.regex.Pattern
+import kotlin.math.absoluteValue
 
 object HtmlUtil {
     private val FILE_NAME_SANITIZE_PATTERN = Pattern.compile("[^a-zA-Z0-9-_.]")
@@ -35,6 +36,8 @@ object HtmlUtil {
             filesToDownload.add(DownloadInfo(absUrl, newFileName))
             link.attr("src", newFileName)
             link.removeAttr("srcset")
+            link.removeAttr("crossorigin")
+            link.removeAttr("integrity")
         }
         return filesToDownload
     }
@@ -88,8 +91,8 @@ object HtmlUtil {
 
     fun urlToFileName(url: String): String {
         var filename = url.substring(url.lastIndexOf('/') + 1)
-        filename = filename.takeLast(189)
-        val hash = url.hashCode() and 0x7FFFFFFF
+        filename = filename.takeLast(90)
+        val hash = url.hashCode().absoluteValue
 
         if (filename.contains("?")) {
             filename = filename.substring(0, filename.indexOf("?"))
