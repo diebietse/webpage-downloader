@@ -60,7 +60,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun download(url: String) {
         lifecycleScope.launch {
+            progressBar.visibility = View.VISIBLE
             viewModel.download(url)
+            progressBar.visibility = View.GONE
             updateViews(viewModel.listDownloads())
         }
     }
