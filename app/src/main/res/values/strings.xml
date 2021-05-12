@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">WebpageDownloader</string>
+    <string name="title">Enter URL to download</string>
+    <string name="download">Download</string>
+    <string name="no_downloads">No Downloads</string>
+
+    <string name="remove_download_title">Remove Download</string>
+    <string name="remove_download_message">Are you sure you want to remove the downloaded website?</string>
+    <string name="remove_download_yes">Yes, remove it</string>
+    <string name="remove_download_no">No, my bad</string>
+    <string name="download_webpage">Download Webpage</string>
 </resources>

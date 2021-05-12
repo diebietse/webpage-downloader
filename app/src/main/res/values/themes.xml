@@ -14,4 +14,20 @@
         <!-- Customize your theme here. -->
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
     </style>
+
+    <style name="Theme.WebpageDownloader.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.WebpageDownloader.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="Theme.WebpageDownloader.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="Theme.WebpageDownloader.ProgressSpinner" parent="Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding">
+        <item name="android:indeterminate">true</item>
+        <item name="mpb_indeterminateTint">?attr/colorPrimary</item>
+        <item name="mpb_progressStyle">horizontal</item>
+        <item name="mpb_useIntrinsicPadding">false</item>
+    </style>
 </resources>

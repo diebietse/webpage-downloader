@@ -44,5 +44,13 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.3.0")
 
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+
+    implementation("androidx.preference:preference-ktx:1.1.1")
+    implementation("androidx.lifecycle:lifecycle-common:2.3.1")
+
+    implementation("com.afollestad.material-dialogs:input:3.3.0")
+    implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
+
     implementation(project(":library"))
 }
