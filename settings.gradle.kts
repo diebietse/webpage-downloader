@@ -7,3 +7,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "WebpageDownloader"
 include(":app")
+include(":library")
