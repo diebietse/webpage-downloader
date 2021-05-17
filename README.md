@@ -39,10 +39,11 @@ val pageId = url.hashCode().absoluteValue.toString()
 WebpageDownloader().download(url, DefaultFileSaver(File(downloadDir, pageId)))
 ```
 
-And render it again in a WebView with:
+And render it in a WebView with:
 
 ```kotlin
 webView.settings.javaScriptEnabled = true
+webView.settings.allowFileAccess = true
 webView.loadUrl("file://${downloadDir}/${pageId}/index.html")
 ```
 

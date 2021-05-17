@@ -26,6 +26,7 @@ class WebActivity : AppCompatActivity() {
 
         val url = intent.getStringExtra("url")
         binding.webView.settings.javaScriptEnabled = true
+        binding.webView.settings.allowFileAccess = true
         binding.webView.loadUrl(url!!)
     }
 }
