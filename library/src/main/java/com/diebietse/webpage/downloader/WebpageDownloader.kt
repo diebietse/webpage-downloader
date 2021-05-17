@@ -98,8 +98,7 @@ class WebpageDownloader {
         }
 
         filesToDownload.forEach { fileToDownload ->
-            val file = downloadFile(fileToDownload.url)
-            fileSaver.save(fileToDownload.filename, file)
+            downloadFile(fileToDownload, fileSaver)
         }
     }
 
@@ -117,13 +116,12 @@ class WebpageDownloader {
         }
     }
 
-    private fun downloadFile(url: String): InputStream {
-        val request = Request.Builder().url(url).headers(HEADERS).build()
-
-        return try {
+    private fun downloadFile(fileToDownload: HtmlUtil.DownloadInfo, fileSaver: FileSaver) {
+        try {
+            val request = Request.Builder().url(fileToDownload.url).headers(HEADERS).build()
             val response = CLIENT.newCall(request).execute()
-            val stream = response.body!!.byteStream()
-            stream
+            fileSaver.save(fileToDownload.filename, response.body!!.byteStream())
+            response.close()
         } catch (e: IOException) {
             ByteArrayInputStream(ByteArray(0))
         }
