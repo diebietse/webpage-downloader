@@ -2,7 +2,9 @@ package com.diebietse.webpage.downloader.example
 
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -10,8 +12,13 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.diebietse.webpage.downloader.example.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
+    private companion object {
+        private const val TAG = "MainActivity"
+    }
+
     private lateinit var downloadsAdapter: DownloadsAdapter
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
@@ -59,7 +66,12 @@ class MainActivity : AppCompatActivity() {
     private fun download(url: String) {
         lifecycleScope.launch {
             binding.content.progressBar.visibility = View.VISIBLE
-            viewModel.download(url)
+            try {
+                viewModel.download(url)
+            } catch (e: Exception) {
+                Log.e(TAG, "Download Failed", e)
+                Toast.makeText(application, e.message, Toast.LENGTH_LONG).show()
+            }
             binding.content.progressBar.visibility = View.GONE
             updateViews(viewModel.listDownloads())
         }

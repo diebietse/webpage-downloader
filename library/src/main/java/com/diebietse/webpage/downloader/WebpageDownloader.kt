@@ -1,6 +1,6 @@
 package com.diebietse.webpage.downloader
 
-import android.util.Log
+import com.diebietse.webpage.downloader.WebpageDownloader.FileSaver
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
 
@@ -48,7 +47,7 @@ class WebpageDownloader {
         fun save(filename: String, content: InputStream)
     }
 
-    private data class ParsedHtml (
+    private data class ParsedHtml(
         val title: String,
         val newHtml: String,
         val filesToDownload: Set<HtmlUtil.DownloadInfo>,
@@ -67,7 +66,8 @@ class WebpageDownloader {
      * @param url the url of the webpage to download
      * @param fileSaver an implementation of [FileSaver] to save all downloaded files
      *
-     * @throws IllegalArgumentException If the url  is not a well-formed HTTP or HTTPS URL.
+     * @throws IllegalArgumentException If the url is not a well-formed HTTP or HTTPS URL.
+     * @throws IOException If there is a problem downloading the webpage
      */
     fun download(url: String, fileSaver: FileSaver) {
         download(url.toHttpUrl(), fileSaver)
@@ -79,6 +79,8 @@ class WebpageDownloader {
      *
      * @param url the [HttpUrl] of the webpage to download
      * @param fileSaver an implementation of [FileSaver] to save all downloaded files
+     *
+     * @throws IOException If there is a problem downloading the webpage
      */
     fun download(url: HttpUrl, fileSaver: FileSaver) {
         val mainPage = downloadPage(url)
@@ -104,27 +106,17 @@ class WebpageDownloader {
 
     private fun downloadPage(url: HttpUrl): String {
         val request = Request.Builder().url(url).headers(HEADERS).build()
-
-        return try {
-            val response = CLIENT.newCall(request).execute()
-            val text = response.body!!.string()
-            response.body!!.close()
-            text
-        } catch (e: IOException) {
-            Log.e("downloader", e.message, e)
-            ""
-        }
+        val response = CLIENT.newCall(request).execute()
+        val text = response.body!!.string()
+        response.close()
+        return text
     }
 
     private fun downloadFile(fileToDownload: HtmlUtil.DownloadInfo, fileSaver: FileSaver) {
-        try {
-            val request = Request.Builder().url(fileToDownload.url).headers(HEADERS).build()
-            val response = CLIENT.newCall(request).execute()
-            fileSaver.save(fileToDownload.filename, response.body!!.byteStream())
-            response.close()
-        } catch (e: IOException) {
-            ByteArrayInputStream(ByteArray(0))
-        }
+        val request = Request.Builder().url(fileToDownload.url).headers(HEADERS).build()
+        val response = CLIENT.newCall(request).execute()
+        fileSaver.save(fileToDownload.filename, response.body!!.byteStream())
+        response.close()
     }
 
     private fun parseHtml(htmlToParse: String, baseUrl: HttpUrl): ParsedHtml {

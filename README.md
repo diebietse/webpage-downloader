@@ -39,7 +39,11 @@ You can then download a webpage (in a background thread) with something like:
 val url = "https://en.wikipedia.org/wiki/Main_Page"
 val downloadDir = File(application.filesDir, "downloads")
 val pageId = url.hashCode().absoluteValue.toString()
-WebpageDownloader().download(url, DefaultFileSaver(File(downloadDir, pageId)))
+try {
+    WebpageDownloader().download(url, DefaultFileSaver(File(downloadDir, pageId)))
+} catch (e: Exception) {
+    Log.e(TAG, "Download Failed", e)
+}
 ```
 
 And render it in a WebView with:

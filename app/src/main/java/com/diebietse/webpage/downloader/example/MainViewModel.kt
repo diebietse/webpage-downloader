@@ -19,8 +19,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun download(url: String) = withContext(Dispatchers.IO) {
         val pageId = url.hashCode().absoluteValue.toString()
-        WebpageDownloader().download(url, DefaultFileSaver(File(downloadDir, pageId)))
-        prefs.edit { putString(pageId, url) }
+        try {
+            WebpageDownloader().download(url, DefaultFileSaver(File(downloadDir, pageId)))
+            prefs.edit { putString(pageId, url) }
+        } catch (e: Exception) {
+            removeDownload(pageId)
+            throw e
+        }
     }
 
     fun listDownloads(): List<Download> {
