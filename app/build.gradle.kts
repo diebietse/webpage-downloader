@@ -12,7 +12,8 @@ android {
         minSdk = 21
         targetSdk = 30
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.2.0"
+        resConfigs("en")
     }
 
     buildTypes {
@@ -41,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.3.0")
 
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
