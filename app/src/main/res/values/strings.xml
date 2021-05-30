@@ -9,4 +9,5 @@
     <string name="remove_download_yes">Yes, remove it</string>
     <string name="remove_download_no">No, my bad</string>
     <string name="download_webpage">Download Webpage</string>
+    <string name="view_source">View Source on GitHub</string>
 </resources>

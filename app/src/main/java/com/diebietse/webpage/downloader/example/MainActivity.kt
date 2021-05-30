@@ -1,5 +1,7 @@
 package com.diebietse.webpage.downloader.example
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -60,6 +62,11 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         binding.content.recyclerView.adapter = downloadsAdapter
+
+        binding.content.buttonSource.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://diebietse.com/webpage-downloader"))
+            startActivity(intent)
+        }
         updateViews(downloads)
     }
 

@@ -10,8 +10,10 @@ An Android and Kotlin library to download webpages for offline viewing.
 It will download all assets required to render the chosen webpage and rewrite all links in the
 webpage to use the downloaded assets
 
+[The example app is available on Google Play][play-link]
+
 ![home](./screenshots/home.webp)
-![home](./screenshots/wikipedia.webp)
+![wikipedia](./screenshots/wikipedia.webp)
 
 To use this in your application you will need to add jitpack to the repositories section of your
 build.gradle file:
@@ -59,3 +61,4 @@ webView.loadUrl("file://${downloadDir}/${pageId}/index.html")
 [ci-badge]: https://github.com/diebietse/webpage-downloader/actions/workflows/android.yml/badge.svg
 [ci-link]: https://github.com/diebietse/webpage-downloader/actions/workflows/android.yml
 [license-badge]: https://img.shields.io/github/license/diebietse/webpage-downloader.svg
+[play-link]: https://play.google.com/store/apps/details?id=com.diebietse.webpage.downloader.example
